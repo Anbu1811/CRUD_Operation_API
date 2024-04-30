@@ -11,6 +11,8 @@ namespace world.API.Common
         {
             //destination, soruce
             CreateMap<Country, CreateCountryDTO>().ReverseMap();
+            CreateMap<Country, ShowCountryDTO>().ReverseMap();
+            CreateMap<Country, UpdateCountryDTO>().ReverseMap();
         }
     }
 }

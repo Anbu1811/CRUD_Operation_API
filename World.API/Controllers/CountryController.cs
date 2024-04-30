@@ -68,10 +68,10 @@ namespace world.API.Controllers
                 return Conflict("Country NAME is already exited or please insert value");
             }
 
-            //Country country = new Country();
-            //country.Name = countryDto.CountryName;
-            //country.ShortName = countryDto.ShortName;
-            //country.CountryCode = countryDto.CountryCode;
+            Country country = new Country();
+            country.Name = countryDto.CountryName;
+            country.ShortName = countryDto.ShortName;
+            country.CountryCode = countryDto.CountryCode;
 
             var country = _mapper.Map<Country>(countryDto);
 

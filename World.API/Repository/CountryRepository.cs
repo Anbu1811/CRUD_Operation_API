@@ -7,7 +7,7 @@ namespace world.API.Repository
 {
     public class CountryRepository : ICountryRepository
     {
-        public ApplicationDbContext _dbContext;
+        private ApplicationDbContext _dbContext;
 
         public CountryRepository(ApplicationDbContext dbContext)
         {

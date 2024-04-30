@@ -1,6 +1,8 @@
 using Microsoft.EntityFrameworkCore;
 using world.API.Common;
 using world.API.Data;
+using world.API.Repository;
+using world.API.Repository.IRepository;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -29,6 +31,10 @@ builder.Services.AddAutoMapper(typeof(MappingProfile));
 
 #endregion
 
+#region
+
+builder.Services.AddTransient<ICountryRepository, CountryRepository>();
+#endregion
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle

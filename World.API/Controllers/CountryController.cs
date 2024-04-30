@@ -106,7 +106,7 @@ namespace world.API.Controllers
             countryfromDb.ShortName = country.ShortName;
             countryfromDb.CountryCode = country.CountryCode;
             
-             just for test purpose*/
+             just for  purpose*/
 
             var country = _mapper.Map<Country>(countryDto);
             _dbContext.countries.Update(country);

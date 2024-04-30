@@ -25,32 +25,36 @@ namespace world.API.Controllers
         [HttpGet]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
-        public ActionResult<IEnumerable<Country>> GetAll() 
+        public ActionResult<IEnumerable<ShowCountryDTO>> GetAll() 
         {
+
             var countries = _dbContext.countries.ToList();
 
-            if(countries == null)
+            var countrydto = _mapper.Map<List<ShowCountryDTO>>(countries);
+
+            if (countries == null)
             {
                 return NoContent();
             }
 
-            return Ok(countries);
+            return Ok(countrydto);
         }
 
 
         [HttpGet("{id:int}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
-        public ActionResult<Country> GetById(int id)
+        public ActionResult<ShowCountryDTO> GetById(int id)
         {
             var countries = _dbContext.countries.Find(id);
+            var countryDto = _mapper.Map<ShowCountryDTO>(countries);
 
-            if(countries == null) 
+            if(countryDto == null) 
             {
                 return NoContent();
             }
 
-            return Ok(countries);
+            return Ok(countryDto);
         }
 
 
@@ -61,7 +65,7 @@ namespace world.API.Controllers
         public ActionResult<CreateCountryDTO> Create([FromBody] CreateCountryDTO countryDto) 
         {
             var result = _dbContext.countries.AsQueryable().Where(x=>x.Name.ToLower().Trim() == 
-            countryDto.CountryName.ToLower().Trim()).Any();
+            countryDto.Name.ToLower().Trim()).Any();
 
             if (result)
             {
@@ -69,7 +73,7 @@ namespace world.API.Controllers
             }
 
             //Country country = new Country();
-            //country.Name = countryDto.CountryName;
+            //country.Name = countryDto.Name;
             //country.ShortName = countryDto.ShortName;
             //country.CountryCode = countryDto.CountryCode;
 
@@ -84,26 +88,28 @@ namespace world.API.Controllers
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
-        public ActionResult<Country> Update(int id,[FromBody] Country country) 
+        public ActionResult<UpdateCountryDTO> Update(int id,[FromBody] UpdateCountryDTO countryDto) 
         {
-            if(country  == null || country.Id != id)
+            if(countryDto  == null  )
             {
                 return BadRequest("ID NOT SAME");
             }
 
-            var countryfromDb = _dbContext.countries.Find(id);
+            /*_dbContext.countries.Find(id);
 
-            if(countryfromDb == null)
+            if (countryfromDb == null)
             {
                 return NotFound("NO DATA FOUND");
-            }
+            } 
 
             countryfromDb.Name = country.Name;
             countryfromDb.ShortName = country.ShortName;
             countryfromDb.CountryCode = country.CountryCode;
+            
+             just for  purpose*/
 
-
-           _dbContext.countries.Update(countryfromDb);
+            var country = _mapper.Map<Country>(countryDto);
+            _dbContext.countries.Update(country);
             _dbContext.SaveChanges();
 
             return NoContent();

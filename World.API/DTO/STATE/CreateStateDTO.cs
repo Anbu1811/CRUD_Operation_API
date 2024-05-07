@@ -1,16 +1,13 @@
 ﻿using System.ComponentModel.DataAnnotations;
-using World.API.Models;
 
-namespace world.API.Models
+namespace world.API.DTO.STATE
 {
-    public class State
+    public class CreateStateDTO
     {
-        [Key]
-        public int Id { get; set; }
+
+        
         public string Name { get; set; }
         public string Population { get; set; }
         public string CountryId { get; set; }
-        public Country Country { get; set; }
-
     }
 }

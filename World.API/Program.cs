@@ -36,6 +36,11 @@ builder.Services.AddAutoMapper(typeof(MappingProfile));
 builder.Services.AddTransient<ICountryRepository, CountryRepository>();
 #endregion
 
+#region configure IStateRepository
+
+builder.Services.AddTransient<IStateRepository, StateRepository>();
+#endregion
+
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();

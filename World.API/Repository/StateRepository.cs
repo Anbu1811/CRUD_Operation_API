@@ -7,53 +7,75 @@ namespace world.API.Repository
 {
     public class StateRepository : IStateRepository
     {
-
-        private ApplicationDbContext _dbContext { get; set; }
+        private ApplicationDbContext _dbcontext;
 
         public StateRepository(ApplicationDbContext dbContext)
         {
-            _dbContext = dbContext;
+            _dbcontext = dbContext;
         }
+
+
+
+
+
 
         public async Task Create(State entity)
         {
-            await _dbContext.states.AddAsync(entity);
+           _dbcontext.states.Add(entity);
             await Save();
         }
 
-        public  async Task Update(State entity)
+
+        public async Task Update(State entity)
         {
-             _dbContext.states.Update(entity);
+            _dbcontext.states.Update(entity);
             await Save();
         }
+
+
 
         public async Task Delete(State entity)
         {
-            _dbContext.states.Remove(entity);
-            await Save();
+            _dbcontext.states.Remove(entity);
+            await Save();  
         }
 
-        public async Task Save()
-        {
-            await _dbContext.SaveChangesAsync();
-        }
-
-        public async Task<List<State>> GetAll()
-        {
-            List<State> result = await _dbContext.states.ToListAsync();
-            return result;
-        }
+        
+       
 
         public async Task<State> GetById(int id)
         {
-            State state = await _dbContext.states.FindAsync(id);
-            return state;
+           State  state =  await _dbcontext.states.FindAsync(id);
+            return state;  
+            
         }
+
+
+        public async Task<List<State>> GetAll()
+        {
+           List<State> state = await _dbcontext.states.ToListAsync();
+            return state;
+
+        }
+
+
+
 
         public bool IsStateExist(string name)
         {
-            var result = _dbContext.states.AsQueryable().Where(x=>x.Name.ToLower().Trim() == name.ToLower().Trim()).Any();
+            var result = _dbcontext.states.AsQueryable().Where(x=>x.Name.ToLower().Trim() == name.ToLower().Trim()).Any();
             return result;
         }
+
+
+
+
+
+        public async Task Save()
+        {
+            await _dbcontext.SaveChangesAsync();
+        }
+
+        
     }
 }

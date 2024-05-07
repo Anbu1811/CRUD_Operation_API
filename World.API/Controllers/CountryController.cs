@@ -1,4 +1,5 @@
-﻿using AutoMapper;
+﻿
+using AutoMapper;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using world.API.Data;
@@ -76,7 +77,7 @@ namespace world.API.Controllers
             var country = _mapper.Map<Country>(countryDto);
 
             await _countryRepository.Create(country);
-            await _countryRepository.Save();
+          
             return CreatedAtAction("GetById", new {id = country.Id}, country);
         }
 
@@ -94,7 +95,7 @@ namespace world.API.Controllers
 
             var country = _mapper.Map<Country>(countryDto);
            await _countryRepository.Update(country);
-            await _countryRepository.Save();
+            
 
             return NoContent();
         }
@@ -110,7 +111,7 @@ namespace world.API.Controllers
             }
 
             await _countryRepository.Delete(country);
-            await _countryRepository.Save();
+           
 
                     
             return Ok();

@@ -1,5 +1,4 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using world.API.Models;
 using World.API.Models;
 
 namespace world.API.Data
@@ -12,7 +11,5 @@ namespace world.API.Data
         }
 
         public DbSet<Country> countries { get; set; }
-
-        public DbSet<State> states { get; set; }
     }
 }

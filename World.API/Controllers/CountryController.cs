@@ -48,7 +48,7 @@ namespace world.API.Controllers
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         public async Task<ActionResult<ShowCountryDTO>> GetById(int id)
         {
-            var countries = await _countryRepository.GetById(id);
+            var countries = await _countryRepository.Get(id);
             var countryDto = _mapper.Map<ShowCountryDTO>(countries);
 
             if(countryDto == null) 
@@ -66,7 +66,7 @@ namespace world.API.Controllers
         [ProducesResponseType(StatusCodes.Status409Conflict)]
         public  async Task<ActionResult<CreateCountryDTO>> Create([FromBody] CreateCountryDTO countryDto) 
         {
-            var result = _countryRepository.IsCountryExist(countryDto.Name);
+            var result = _countryRepository.IsRecordExist(x=>x.Name == countryDto.Name);
 
             if (result)
             {
@@ -103,12 +103,12 @@ namespace world.API.Controllers
         [HttpDelete("{id:int}")]
         public async Task<ActionResult<Country>> Delete(int id)
         {
-            var country = await _countryRepository.GetById(id);
+            var country = await _countryRepository.Get(id);
 
             if(country == null) 
             {
                 return NotFound();
-            }
+            } 
 
             await _countryRepository.Delete(country);
            

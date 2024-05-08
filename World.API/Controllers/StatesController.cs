@@ -27,7 +27,7 @@ namespace world.API.Controllers
         [ProducesResponseType(StatusCodes.Status409Conflict)]
         public  async Task<ActionResult<CreateStateDTO>> Create([FromBody] CreateStateDTO statedto) 
         {
-            var result = _stateRepository.IsStateExist(statedto.Name);
+            var result = _stateRepository.IsRecordExist(x=>x.Name == statedto.Name);
 
             if (result)
             {
@@ -58,7 +58,7 @@ namespace world.API.Controllers
         [ProducesResponseType(StatusCodes.Status200OK)]
         public async Task<ActionResult<State>> Delete(int id)
         {
-            var getid = await _stateRepository.GetById(id);
+            var getid = await _stateRepository.Get(id);
 
             if(getid == null)
             {
@@ -76,7 +76,7 @@ namespace world.API.Controllers
         [ProducesResponseType(StatusCodes.Status200OK)]
         public async Task<ActionResult<ShowStateDTO>> GetId(int id)
         {
-            var getid = await _stateRepository.GetById(id);
+            var getid = await _stateRepository.Get(id);
 
             if (getid == null)
             {

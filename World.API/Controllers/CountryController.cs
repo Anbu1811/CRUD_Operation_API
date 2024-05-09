@@ -14,6 +14,8 @@ namespace world.API.Controllers
 
         private readonly ApplicationDbContext _dbContext;
         private readonly IMapper _mapper;
+
+        //Interface cannot be implemented
         public CountryController(ApplicationDbContext dbContext, IMapper mapper)
         {
             _dbContext = dbContext;
